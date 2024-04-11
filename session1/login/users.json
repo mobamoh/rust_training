@@ -1,0 +1,12 @@
+{
+    "moha": {
+        "username": "moha",
+        "password": "12977E37AABE7A4CC730D4D36CF3659863B6835F8B5BFDBDDE5BBC99C305F9A9",
+        "role": "User"
+    },
+    "admin": {
+        "username": "admin",
+        "password": "37BD45D638C2D11C49C641D2E9C4F49F406CAF3EE282743E0C800AA1ED68E2EE",
+        "role": "Admin"
+    }
+}
