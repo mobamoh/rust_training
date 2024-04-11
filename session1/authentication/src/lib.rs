@@ -6,7 +6,7 @@ pub fn greet(name: &str) -> String {
     format!("Welcome back {name}!")
 }
 
-fn hash_password(password: &str) -> String {
+pub fn hash_password(password: &str) -> String {
     use sha2::Digest;
     let mut hasher = sha2::Sha256::new();
     hasher.update(password);
@@ -18,21 +18,21 @@ pub enum LoginAction {
     Denied,
 }
 
-#[derive(Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum LoginRole {
     Admin,
     User,
 }
 
 #[derive(Serialize, Deserialize)]
-struct User {
-    username: String,
-    password: String,
-    role: LoginRole,
+pub struct User {
+    pub username: String,
+    pub password: String,
+    pub role: LoginRole,
 }
 
 impl User {
-    fn new(username: &str, password: &str, role: LoginRole) -> Self {
+    pub fn new(username: &str, password: &str, role: LoginRole) -> Self {
         Self {
             username: username.to_lowercase(),
             password: hash_password(password),
@@ -61,7 +61,7 @@ fn get_example_users() -> HashMap<String, User> {
     users
 }
 
-fn get_users() -> HashMap<String, User> {
+pub fn get_users() -> HashMap<String, User> {
     let users_path = Path::new("users.json");
     if users_path.exists() {
         let users_json = std::fs::read_to_string(users_path).unwrap();
@@ -73,6 +73,12 @@ fn get_users() -> HashMap<String, User> {
         std::fs::write(users_path, users_json).unwrap();
         users
     }
+}
+
+pub fn save_users(users: HashMap<String, User>) {
+    let users_path = Path::new("users.json");
+    let users_json = serde_json::to_string(&users).unwrap();
+    std::fs::write(users_path, users_json).unwrap();
 }
 
 // fn get_admin_usernames() -> Vec<String> {
