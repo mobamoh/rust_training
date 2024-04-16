@@ -11,10 +11,29 @@
 } */
 
 #[tokio::main]
-async fn main(){
-    hello_tokio().await
+async fn main() {
+    // hello_tokio().await;
+    // ticker().await;
+
+    // let _ = tokio::join!(tokio::spawn(hello_tokio()), tokio::spawn(ticker()));
+
+    // tokio::spawn(ticker());
+    // hello_tokio().await;
+
+    let _ =tokio::join!(
+        tokio::spawn(hello_tokio()),
+        tokio::spawn(ticker()),
+        tokio::spawn(ticker())
+    );
 }
 
 async fn hello_tokio() {
     println!("Hello Tokio!!")
+}
+
+async fn ticker() {
+    for i in 0..10 {
+        println!("tick: {i}");
+        tokio::task::yield_now().await;
+    }
 }
