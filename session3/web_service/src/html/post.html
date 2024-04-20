@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>trying post</title>
+</head>
+
+<body>
+    <h1>trying POST...</h1>
+    <p id="result"></p>
+</body>
+
+<script>
+    function doPost() {
+        fetch('post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: ''
+        })
+            .then(res => res.text())
+            .then(res => {
+                document.getElementById('result').innerHTML = res;
+            })
+            .catch(err => {
+                console.error('Error', err);
+            })
+    }
+
+    doPost();
+</script>
+
+</html>
